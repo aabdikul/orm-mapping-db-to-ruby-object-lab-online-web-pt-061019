@@ -56,36 +56,30 @@ class Student
   end
 
   def self.students_below_12th_grade
-    array = []
     sql = <<-SQL
       SELECT *
       FROM students
       WHERE grade <= ?
       SQL
-    DB[:conn].execute(sql,11).each {|student_array| array << self.new_from_db(student_array)}
-    array
+    DB[:conn].execute(sql,11).map {|student_array| self.new_from_db(student_array)}
   end
 
   def self.all
-    array = []
     sql = <<-SQL
       SELECT *
       FROM students
       SQL
-    DB[:conn].execute(sql).each {|student_array| array << self.new_from_db(student_array)}
-    array
+    DB[:conn].execute(sql).map {|student_array| self.new_from_db(student_array)}
   end
 
   def self.first_X_students_in_grade_10(num_students)
-    array = []
     sql = <<-SQL
       SELECT *
       FROM students
       WHERE grade = ?
       LIMIT ?
       SQL
-    DB[:conn].execute(sql,10,num_students).each {|student_array| array << self.new_from_db(student_array)}
-    array
+    DB[:conn].execute(sql,10,num_students).map {|student_array| self.new_from_db(student_array)}
   end
 
   def self.first_student_in_grade_10
