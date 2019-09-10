@@ -44,4 +44,13 @@ class Student
     self.new_from_db(DB[:conn].execute(sql,name)[0])
   end
 
+  def self.all_students_in_grade_9(grade)
+    sql = <<-SQL
+      SELECT *
+      FROM students
+      WHERE grade = ?
+      SQL
+    DB[:conn].execute(sql,grade)
+  end
+
 end
