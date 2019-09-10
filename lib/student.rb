@@ -71,13 +71,15 @@ class Student
   end
 
   def self.first_X_students_in_grade_10(num_students)
+    array = []
     sql = <<-SQL
       SELECT *
       FROM students
       WHERE grade = ?
       LIMIT ?
       SQL
-    DB[:conn].execute(sql,10,num_students)
+    DB[:conn].execute(sql,10,num_students).each {|student_array| array << self.new_from_db(student_array)}
+    array
   end
 
 end
