@@ -75,6 +75,7 @@ class Student
       SELECT *
       FROM students
       WHERE grade = ?
+      ORDER BY student.id
       LIMIT ?
       SQL
     DB[:conn].execute(sql,10,num_students).map {|student_array| self.new_from_db(student_array)}
@@ -85,6 +86,7 @@ class Student
       SELECT *
       FROM students
       WHERE grade = ?
+      ORDER BY student.id
       LIMIT ?
       SQL
     self.new_from_db(DB[:conn].execute(sql,10,1)[0])
