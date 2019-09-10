@@ -63,11 +63,13 @@ class Student
   end
 
   def self.all
+    array = []
     sql = <<-SQL
       SELECT *
       FROM students
       SQL
-    DB[:conn].execute(sql)
+    DB[:conn].execute(sql).each {|student_array| array << self.new_from_db(student_array)}
+    array
   end
 
   def self.first_X_students_in_grade_10(num_students)
