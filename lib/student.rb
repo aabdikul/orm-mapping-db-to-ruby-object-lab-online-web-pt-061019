@@ -96,7 +96,7 @@ class Student
       WHERE grade = ?
       LIMIT ?
       SQL
-    DB[:conn].execute(sql,10,1).each {|student_array| array << self.new_from_db(student_array)}.first[0]
+    DB[:conn].execute(sql,10,1).each {|student_array| array << Student.new_from_db(student_array)}.first
     array
   end
 
