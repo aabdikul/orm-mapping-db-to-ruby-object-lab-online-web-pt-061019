@@ -45,14 +45,12 @@ class Student
   end
 
   def self.all_students_in_grade_9
-    array = []
     sql = <<-SQL
       SELECT *
       FROM students
       WHERE grade = ?
       SQL
-    DB[:conn].execute(sql,9).each {|student_array| array << self.new_from_db(student_array)}
-    array
+    DB[:conn].execute(sql,9).map {|student_array| self.new_from_db(student_array)}
   end
 
   def self.students_below_12th_grade
